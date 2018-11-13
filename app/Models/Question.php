@@ -13,13 +13,13 @@ class Question extends Model
         'votes',
         'answers',
         'views',
-        'author_id',
+        'user_id',
         'best_answer_id',
     ];
     
-    public function author()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(User::class);
     }
     
     public function setTitleAttribute($value)
