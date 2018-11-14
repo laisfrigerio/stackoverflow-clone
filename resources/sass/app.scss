@@ -1,10 +1,7 @@
-
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 @import 'variables';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
@@ -14,87 +11,87 @@
 }
 
 .counters {
-    margin-right: 30px;
-    font-size: 10px;
-    text-align: center;
+  margin-right: 30px;
+  font-size: 10px;
+  text-align: center;
 
-    strong {
-        display: block;
-        font-size: 2em;
+  strong {
+    display: block;
+    font-size: 2em;
+  }
+
+  .vote, .answer {
+    width: 60px;
+    height: 60px;
+  }
+
+  .status {
+
+    &.unanswered {
+      border: none;
     }
 
-    .vote, .answer {
-        width: 60px;
-        height: 60px;
+    &.answered {
+      border: 1px solid $green;
+      color: $green;
     }
 
-    .status {
-
-        &.unanswered {
-            border: none;
-        }
-
-        &.answered {
-            border: 1px solid $green;
-            color: $green;
-        }
-
-        &.answered-accepted {
-            background-color: $green;
-            color: $white;
-        }
-
+    &.answered-accepted {
+      background-color: $green;
+      color: $white;
     }
 
-    .view {
-        margin-top: 10px;
-    }
+  }
+
+  .view {
+    margin-top: 10px;
+  }
 }
 
 form.form-delete {
-   display: inline;
+  display: inline;
 }
 
 .vote-controls {
-    min-width: 60px;
-    margin-right: 30px;
-    text-align: center;
-    color: $gray-700;
+  min-width: 60px;
+  margin-right: 30px;
+  text-align: center;
+  color: $gray-700;
 
-    span, a {
-        display: block;
+  span, a {
+    display: block;
+  }
+
+  span {
+    &.votes-count {
+      font-size: 25px;
     }
 
-    span {
-        &.votes-count {
-            font-size: 25px;
-        }
+    &.favorites-count {
+      font-size: 12px;
+    }
+  }
 
-        &.favorites-count {
-            font-size: 12px;
-        }
+  a {
+    cursor: pointer;
+    color: $gray-600;
+
+    &.off, &.off:hover {
+      color: $gray-500;
     }
 
-    a {
-        cursor: pointer;
-        color: $gray-600;
-
-        &.off, &.off:hover {
-            color: $gray-500;
-        }
-
-        &.favorite {
-            &.favorited, &.favorited:hover {
-                color: $warning;
-            }
-        }
-
-        &.votes-accepted {
-            color: $green;
-        }
+    &.favorite {
+      &.favorited, &.favorited:hover {
+        color: $warning;
+      }
     }
+
+    &.votes-accepted {
+      color: $green;
+    }
+  }
 }
 
 .vote-up {
-    display: block;
+  display: block;
 }
