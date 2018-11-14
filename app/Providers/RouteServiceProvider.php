@@ -25,7 +25,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         Route::bind('slug', function ($slug) {
-            $question = Question::where('slug', $slug)->first();
+            $question = Question::with('answers.user', 'user')->where('slug', $slug)->first();
             return $question ?? abort(404);
         });
 
