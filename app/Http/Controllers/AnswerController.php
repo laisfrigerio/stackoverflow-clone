@@ -37,16 +37,39 @@ class AnswerController extends Controller
     }
     
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Question $question
+     * @param Answer $answer
+     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function edit(Question $question, Answer $answer)
+    {
+        $this->authorize('update', $answer);
+        return view('answers.edit')->with(['question' => $question, 'answer' => $answer]);
+    }
+    
+    /**
      * Update the specified resource in storage.
      *
      * @param Question $question
      * @param  \Illuminate\Http\Request $request
      * @param  \App\Models\Answer $answer
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Question $question, Request $request, Answer $answer)
+    public function update(Request $request, Question $question, Answer $answer)
     {
-        //
+        $this->authorize('update', $answer);
+        
+        $answer->update(
+            $request->validate([
+                'body' => 'required|string'
+            ])
+        );
+        
+        return redirect()->route('questions.show', $question->slug)->with(['success' => 'Your answer has been updated']);
     }
 
     /**
