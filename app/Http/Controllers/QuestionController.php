@@ -15,8 +15,8 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $resources = Question::latest()->with('user')->paginate(5);
-        return view('questions.index')->with(['questions' => $resources]);
+        $questions = Question::latest()->with('user')->paginate(5);
+        return view('questions.index')->with(['questions' => $questions]);
     }
 
     /**
@@ -26,8 +26,8 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $resource = new Question();
-        return view('questions.create')->with(['question' => $resource]);
+        $question = new Question();
+        return view('questions.create')->with(['question' => $question]);
     }
 
     /**
@@ -61,19 +61,20 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        return view('questions.edit')->with(['question' => $question]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  AskQuestionRequest $request
      * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(AskQuestionRequest $request, Question $question)
     {
-        //
+        $question->update($request->only('title', 'body'));
+        return redirect()->route('questions.index')->with(['success' => 'Your questions has been updated']);
     }
 
     /**
