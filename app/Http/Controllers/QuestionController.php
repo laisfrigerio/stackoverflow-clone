@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AskQuestionRequest;
 use App\Models\Question;
-use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
@@ -39,7 +38,7 @@ class QuestionController extends Controller
     public function store(AskQuestionRequest $request)
     {
         $request->user()->questions()->create($request->only('title', 'body'));
-        return redirect()->route('questions.index')->with(['success' => 'Your questions has been submitted']);
+        return redirect()->route('questions.index')->with(['success' => 'Your question has been submitted']);
     }
 
     /**
@@ -74,17 +73,19 @@ class QuestionController extends Controller
     public function update(AskQuestionRequest $request, Question $question)
     {
         $question->update($request->only('title', 'body'));
-        return redirect()->route('questions.index')->with(['success' => 'Your questions has been updated']);
+        return redirect()->route('questions.index')->with(['success' => 'Your question has been updated']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Question $question
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+        return redirect()->route('questions.index')->with(['success' => 'Your question has been deleted']);
     }
 }
