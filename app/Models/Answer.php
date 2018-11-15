@@ -22,14 +22,7 @@ class Answer extends Model
         });
         
         static::deleted(function ($answer) {
-            $question = $answer->question;
-            $question->decrement('answers_count');
-            $question->save();
-            
-            if ($answer->id === $question->best_answer_id) {
-                $question->best_answer_id = NULL;
-                $question->save();
-            }
+            $answer->question->decrement('answers_count');
         });
     }
 

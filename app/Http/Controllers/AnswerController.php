@@ -79,6 +79,7 @@ class AnswerController extends Controller
      * @param  \App\Models\Answer $answer
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Exception
      */
     public function destroy(Question $question,  Answer $answer)
     {
