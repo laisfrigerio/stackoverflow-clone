@@ -23,4 +23,6 @@ Route::get('/questions/{slug}', 'QuestionController@show')->name('questions.show
 //Route::post('/questions/{question}/answers', 'AnswerController@store')->name('answers.store');
 Route::resource('questions.answers', 'AnswerController')->only(['store', 'edit', 'update', 'destroy']); // nested routes
 
+Route::post('/questions/{question}/favorite', 'FavoriteController@store')->name('questions.favorite');
+Route::delete('/questions/{question}/favorite', 'FavoriteController@destroy')->name('questions.unfavorite');
 Route::post('/answers/{answer}/accept', 'AnswerAcceptController')->name('answers.accept');
