@@ -10,7 +10,6 @@ class Answer extends Model
         'question_id',
         'user_id',
         'body',
-        'votes_count'
     ];
 
     public static function boot()
@@ -34,6 +33,13 @@ class Answer extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    
+    public function votes()
+    {
+        return $this->morphToMany(User::class, 'votable')
+            ->withPivot('vote')
+            ->withTimestamps();
     }
 
     /**
@@ -62,5 +68,15 @@ class Answer extends Model
     public function getStatusAttribute()
     {
         return $this->isBest() ? 'votes-accepted' : '';
+    }
+    
+    /**
+     * Sum total of votes from a question
+     *
+     * @return mixed
+     */
+    public function getVotesCountAttribute()
+    {
+        return $this->votes()->sum('vote');
     }
 }

@@ -10,7 +10,6 @@ class Question extends Model
         'title',
         'body',
         'slug',
-        'votes',
         'answers',
         'views',
         'user_id',
@@ -28,17 +27,27 @@ class Question extends Model
 
     public function favorites()
     {
-        return $this->belongsToMany(User::class, 'favorites')->withTimestamps(); // 'question_id', 'user_id'
+        return $this->belongsToMany(User::class, 'favorites') // 'question_id', 'user_id'
+            ->withTimestamps();
     }
     
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+    
+    public function votes()
+    {
+        return $this->morphToMany(User::class, 'votable')
+            ->withPivot('vote')
+            ->withTimestamps();
+    }
 
     public function isFavorited()
     {
-        return $this->favorites()->where('user_id', auth()->id())->count() > 0;
+        return $this->favorites()
+                ->where('user_id', auth()->id())
+                ->count() > 0;
     }
 
     /**
@@ -83,6 +92,26 @@ class Question extends Model
         }
 
         return 'unanswered';
+    }
+    
+    /**
+     * Sum total of votes from a question
+     *
+     * @return mixed
+     */
+    public function getVotesCountAttribute()
+    {
+        return $this->votes()->sum('vote');
+    }
+    
+    /**
+     * Sum total of answers from a question
+     *
+     * @return mixed
+     */
+    public function getAnswersCountAttribute()
+    {
+        return $this->answers()->count();
     }
 
 }

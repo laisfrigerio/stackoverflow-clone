@@ -28,6 +28,7 @@ class FavoriteController extends Controller
 
     /**
      * Unmaking a favorite question
+     *
      * @param Question $question
      * @return \Illuminate\Http\RedirectResponse
      */
