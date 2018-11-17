@@ -10,13 +10,38 @@
                     <div class="media">
 
                         <div class="d-flex flex-column vote-controls">
-                            <a title="This answer is useful?" class="vote-up">
+                            <a title="This answer is useful?"
+                               class="vote-up {{ Auth::guest() ? 'off' : '' }}"
+                               onclick="event.preventDefault(); document.getElementById('vote-up-answer-{{ $answer->id }}').submit()"
+                            >
                                 <i class="fas fa-caret-up fa-3x"></i>
                             </a>
+                            <form style="display: none"
+                                  id="vote-up-answer-{{ $answer->id }}"
+                                  action="{{ route('answers.vote', $answer->id) }}"
+                                  method="POST"
+                            >
+                                @csrf
+                                <input type="hidden" name="vote" value="1">
+                            </form>
+
                             <span class="votes-count">{{ $answer->votes_count }}</span>
-                            <a title="This answer is not useful?" class="vote-down off">
+
+                            <a title="This answer is not useful?"
+                               class="vote-down {{ Auth::guest() ? 'off' : '' }}"
+                               onclick="event.preventDefault(); document.getElementById('vote-down-answer-{{ $answer->id }}').submit()"
+                            >
                                 <i class="fas fa-caret-down fa-3x"></i>
                             </a>
+                            <form style="display: none"
+                                  id="vote-down-answer-{{ $answer->id }}"
+                                  action="{{ route('answers.vote', $answer->id) }}"
+                                  method="POST"
+                            >
+                                @csrf
+                                <input type="hidden" name="vote" value="-1">
+                            </form>
+
                             @can('accept', $answer)
                                 <a
                                     title="Mark this answer as best answer"
