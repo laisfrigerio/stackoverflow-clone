@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\VotableTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
+    use VotableTrait;
+
     protected $fillable = [
         'question_id',
         'user_id',
@@ -33,13 +36,6 @@ class Answer extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-    
-    public function votes()
-    {
-        return $this->morphToMany(User::class, 'votable')
-            ->withPivot('vote')
-            ->withTimestamps();
     }
 
     /**
