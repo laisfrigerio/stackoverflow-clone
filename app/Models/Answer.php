@@ -13,6 +13,7 @@ class Answer extends Model
         'question_id',
         'user_id',
         'body',
+        'votes_counter',
     ];
 
     public static function boot()

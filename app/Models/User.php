@@ -44,12 +44,12 @@ class User extends Authenticatable
     
     public function questionsVote()
     {
-        return $this->morphedByMany(Question::class, 'votable');
+        return $this->morphedByMany(Question::class, 'votable')->withTimestamps();
     }
     
     public function answersVote()
     {
-        return $this->morphedByMany(Answer::class, 'votable');
+        return $this->morphedByMany(Answer::class, 'votable')->withTimestamps();
     }
 
     /**

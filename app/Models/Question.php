@@ -17,6 +17,7 @@ class Question extends Model
         'views',
         'user_id',
         'best_answer_id',
+        'votes_counter',
     ];
 
     /**
@@ -25,7 +26,7 @@ class Question extends Model
 
     public function answers()
     {
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(Answer::class)->orderBy('votes_counter', 'DESC');
     }
 
     public function favorites()
@@ -49,7 +50,10 @@ class Question extends Model
     /**
      * Mutator
      */
-    
+
+    /**
+     * @param $value
+     */
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = $value;
