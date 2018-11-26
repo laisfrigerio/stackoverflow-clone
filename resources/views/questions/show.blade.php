@@ -40,10 +40,7 @@
                                     <div class="col-md-4"></div>
                                     <div class="col-md-4"></div>
                                     <div class="col-md-4">
-                                        @include('partials._avatar', [
-                                            'model' => $question,
-                                            'label' => 'Asked'
-                                        ])
+                                        <avatar label='Asked' :model="{{ $question  }}"></avatar>
                                     </div>
                                 </div>
                             </div>

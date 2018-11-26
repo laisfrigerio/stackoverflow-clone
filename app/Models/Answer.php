@@ -16,6 +16,10 @@ class Answer extends Model
         'votes_counter',
     ];
 
+    protected  $appends = [
+        'created_date'
+    ];
+
     public static function boot()
     {
         parent::boot();

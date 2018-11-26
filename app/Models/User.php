@@ -27,6 +27,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $appends = [
+        'url', 'avatar'
+    ];
+
     public function answers()
     {
         return $this->hasMany(Answer::class);
@@ -61,5 +65,11 @@ class User extends Authenticatable
         $email = $this->email;
         $size = 32;
         return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?s=" . $size . "&d=identicon";
+    }
+
+    public function getUrlAttribute()
+    {
+        // return route("questions.show", $this->id);
+        return '#';
     }
 }

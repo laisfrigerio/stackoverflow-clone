@@ -20,6 +20,10 @@ class Question extends Model
         'votes_counter',
     ];
 
+    protected $appends = [
+        'created_date'
+    ];
+
     /**
      * Relations
      */
