@@ -50012,7 +50012,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -50056,7 +50056,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         update: function update() {
             var _this = this;
 
-            axios.patch("/questions/" + this.questionID + "/answers/" + this.id, {
+            axios.patch(this.endPoint, {
                 body: this.body
             }).then(function (response) {
                 _this.editing = false;
@@ -50065,12 +50065,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 alert(error.response.data.message);
             });
+        },
+        destroy: function destroy() {
+            var _this2 = this;
+
+            if (confirm('Are you sure?')) {
+                axios.delete(this.endPoint).then(function (response) {
+                    $(_this2.$el).fadeOut(500, function () {
+                        alert(response.data.message);
+                    });
+                });
+            }
         }
     },
 
     computed: {
         isInvalid: function isInvalid() {
             return this.body.length < 10;
+        },
+        endPoint: function endPoint() {
+            return '/questions/' + this.questionID + '/answers/' + this.id;
         }
     }
 });

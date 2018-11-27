@@ -29,17 +29,14 @@
                             @can('update', $answer)
                                 <a
                                     {{--                                href="{{ route('questions.answers.edit', [$question->id, $answer->id]) }}" --}}
-                                    @click.prevent="editing = true"
+                                    @click.prevent="edit"
                                     class="btn btn-sm btn-primary"
                                 >
                                     Edit
                                 </a>
                             @endcan
                             @can('delete', $answer)
-                                <form class="form-delete" action="{{ route('questions.answers.destroy', [$question->id, $answer->id]) }}" method="post">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-outline-danger" onClick="return confirm('Are you sure')">Delete</button>
+                                    <button @click="destroy" class="btn btn-sm btn-outline-danger">Delete</button>
                                 </form>
                             @endcan
                         </div>

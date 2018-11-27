@@ -14,7 +14,7 @@
                 bodyHtml: this.answer.body_html,
                 id: this.answer.id,
                 questionID: this.answer.question_id,
-                beforeEditCache: null,
+                beforeEditCache: null
             }
         },
 
@@ -30,7 +30,7 @@
             },
 
             update() {
-                axios.patch(`/questions/${this.questionID}/answers/${this.id}`, {
+                axios.patch(this.endPoint, {
                     body: this.body
                 })
                 .then(response => {
@@ -41,12 +41,27 @@
                 .catch(error => {
                     alert(error.response.data.message);
                 });
+            },
+
+            destroy() {
+                if (confirm('Are you sure?')) {
+                    axios.delete(this.endPoint)
+                    .then(response => {
+                        $(this.$el).fadeOut(500, () => {
+                            alert(response.data.message);
+                        })
+                    });
+                }
             }
         },
 
         computed: {
             isInvalid() {
                 return this.body.length < 10;
+            },
+
+            endPoint() {
+                return `/questions/${this.questionID}/answers/${this.id}`
             }
         }
     }
