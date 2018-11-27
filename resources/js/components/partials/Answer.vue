@@ -13,11 +13,22 @@
                 body: this.answer.body,
                 bodyHtml: this.answer.body_html,
                 id: this.answer.id,
-                questionID: this.answer.question_id
+                questionID: this.answer.question_id,
+                beforeEditCache: null,
             }
         },
 
         methods: {
+            edit() {
+                this.editing = true;
+                this.beforeEditCache = this.body
+            },
+
+            cancel() {
+                this.editing = false;
+                this.body =  this.beforeEditCache;
+            },
+
             update() {
                 axios.patch(`/questions/${this.questionID}/answers/${this.id}`, {
                     body: this.body

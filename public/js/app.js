@@ -49793,7 +49793,7 @@ var content = __webpack_require__(50);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(12)("3185af8c", content, false, {});
+var update = __webpack_require__(12)("206b2eda", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -49988,7 +49988,7 @@ var content = __webpack_require__(56);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(12)("52010ba4", content, false, {});
+var update = __webpack_require__(12)("102d80ce", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -50012,7 +50012,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -50038,12 +50038,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             body: this.answer.body,
             bodyHtml: this.answer.body_html,
             id: this.answer.id,
-            questionID: this.answer.question_id
+            questionID: this.answer.question_id,
+            beforeEditCache: null
         };
     },
 
 
     methods: {
+        edit: function edit() {
+            this.editing = true;
+            this.beforeEditCache = this.body;
+        },
+        cancel: function cancel() {
+            this.editing = false;
+            this.body = this.beforeEditCache;
+        },
         update: function update() {
             var _this = this;
 
