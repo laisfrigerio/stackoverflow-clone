@@ -24,6 +24,10 @@ class Question extends Model
         'created_date'
     ];
 
+    protected $append = [
+        'is_favorited', 'favorites_count'
+    ];
+
     /**
      * Relations
      */
