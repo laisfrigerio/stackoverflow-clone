@@ -30,28 +30,45 @@
             },
 
             update() {
-                axios.patch(this.endPoint, {
+                axios.patch(`/questions/${this.questionID}/answers/${this.id}`, {
                     body: this.body
                 })
                 .then(response => {
                     this.editing = false;
                     this.bodyHtml = response.data.body_html;
-                    alert(response.data.message)
+                    this.$toast.success(response.data.message, "Success", { timeout: 3000, position: 'topRight'});
                 })
                 .catch(error => {
-                    alert(error.response.data.message);
+                    this.$toast.error(error.response.data.message, "Error", { timeout: 3000, position: 'topRight'});
                 });
             },
 
             destroy() {
-                if (confirm('Are you sure?')) {
-                    axios.delete(this.endPoint)
-                    .then(response => {
-                        $(this.$el).fadeOut(500, () => {
-                            alert(response.data.message);
-                        })
-                    });
-                }
+                this.$toast.question('Are you sure about that?', "Confirm", {
+                    timeout: 20000,
+                    close: false,
+                    overlay: true,
+                    displayMode: 'once',
+                    id: 'question',
+                    zindex: 999,
+                    title: 'Hey',
+                    position: 'center',
+                    buttons: [
+                        ['<button><b>YES</b></button>', (instance, toast) => {
+
+                            axios.delete(`/questions/${this.questionID}/answers/${this.id}`)
+                                .then(response => {
+                                    $(this.$el).fadeOut(500, () => {
+                                        this.$toast.success(response.data.message, "Sucess", { timeout: 3000 });
+                                    })
+                                });
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                        }, true],
+                        ['<button>NO</button>', function (instance, toast) {
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                        }],
+                    ]
+                });
             }
         },
 
@@ -59,10 +76,6 @@
             isInvalid() {
                 return this.body.length < 10;
             },
-
-            endPoint() {
-                return `/questions/${this.questionID}/answers/${this.id}`
-            }
         }
     }
 </script>
