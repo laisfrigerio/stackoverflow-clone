@@ -17,8 +17,8 @@
                 <div class="form-group">
                     <textarea rows="10" v-model="body" class="form-control" required></textarea>
                 </div>
-                <button @click=edit" class="btn btn-primary">Update</button>
-                <button @click=cancel" class="btn btn-danger" type="button">Cancel</button>
+                <button @click="edit" :disabled="isInvalid" class="btn btn-primary">Update</button>
+                <button @click="cancel" class="btn btn-danger" type="button">Cancel</button>
             </form>
             <div v-else>
                 {{--{!! $answer->body_html !!}--}}

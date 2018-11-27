@@ -39,8 +39,14 @@
                     alert(response.data.message)
                 })
                 .catch(error => {
-                    console.log('Something wnet wrong' + error);
+                    alert(error.response.data.message);
                 });
+            }
+        },
+
+        computed: {
+            isInvalid() {
+                return this.body.length < 10;
             }
         }
     }

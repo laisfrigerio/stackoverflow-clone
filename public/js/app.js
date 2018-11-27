@@ -49793,7 +49793,7 @@ var content = __webpack_require__(50);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(12)("206b2eda", content, false, {});
+var update = __webpack_require__(12)("3185af8c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -49988,7 +49988,7 @@ var content = __webpack_require__(56);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(12)("102d80ce", content, false, {});
+var update = __webpack_require__(12)("52010ba4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -50012,7 +50012,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -50056,15 +50056,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         update: function update() {
             var _this = this;
 
-            axios.patch('/questions/' + this.questionID + '/answers/' + this.id, {
+            axios.patch("/questions/" + this.questionID + "/answers/" + this.id, {
                 body: this.body
             }).then(function (response) {
                 _this.editing = false;
                 _this.bodyHtml = response.data.body_html;
                 alert(response.data.message);
             }).catch(function (error) {
-                console.log('Something wnet wrong' + error);
+                alert(error.response.data.message);
             });
+        }
+    },
+
+    computed: {
+        isInvalid: function isInvalid() {
+            return this.body.length < 10;
         }
     }
 });
