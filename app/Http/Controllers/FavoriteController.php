@@ -23,6 +23,11 @@ class FavoriteController extends Controller
     public function store(Question $question)
     {
         $question->favorites()->attach(auth()->id());
+
+        if (request()->expectsJson()) {
+            return response()->json(null, 204);
+        }
+
         return back();
     }
 
@@ -30,11 +35,16 @@ class FavoriteController extends Controller
      * Unmaking a favorite question
      *
      * @param Question $question
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy(Question $question)
     {
         $question->favorites()->detach(auth()->id());
+
+        if (request()->expectsJson()) {
+            return response()->json(null, 204);
+        }
+
         return back();
     }
 }

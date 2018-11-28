@@ -27,11 +27,7 @@
                                     'uri'        => 'questions'
                                 ])
 
-                                @include('partials._favorite', [
-                                    'model' => $question,
-                                    'name'  => 'question',
-                                    'uri'    => 'questions'
-                                ])
+                                <favorite :question="{{ $question }}"></favorite>
                             </div>
 
                             <div class="media-body">

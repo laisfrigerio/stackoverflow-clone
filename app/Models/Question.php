@@ -21,11 +21,7 @@ class Question extends Model
     ];
 
     protected $appends = [
-        'created_date'
-    ];
-
-    protected $append = [
-        'is_favorited', 'favorites_count'
+        'created_date', 'is_favorited', 'favorites_count'
     ];
 
     /**
@@ -81,6 +77,11 @@ class Question extends Model
     public function getCreatedDateAttribute()
     {
         return $this->created_at->diffForHumans();
+    }
+
+    public function getIsFavoritedAttribute()
+    {
+        return $this->isFavorited();
     }
 
     public function getFavoritesCountAttribute()

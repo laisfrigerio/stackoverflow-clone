@@ -1,11 +1,11 @@
 <template>
     <a
-        title="Click to mark as favorite {{ $name }} (Click again to undo)"
-        class="favorite mt-2 {{ Auth::guest() ? 'off' : ($model->isFavorited() ? 'favorited' : '') }}"
-        onclick="event.preventDefault(); document.getElementById('favorite-{{ $name }}-{{ $model->id }}').submit()"
+        title="Click to mark as favorite (Click again to undo)"
+        :class="classes"
+        @click.prevent="toggle"
     >
         <i class="fas fa-star fa-2x"></i>
-        <span class="favorites-count">{{ $model->favorites_count }}</span>
+        <span class="favorites-count">{{ count }}</span>
     </a>
 
 </template>
@@ -17,17 +17,54 @@
 
         data() {
             return {
+                id: this.question.id,
                 isFavorite: this.question.is_favorited,
-                count: this.question.favorites_count,
-                signedIn: true
+                count: this.question.favorites_count
             }
         },
 
         computed: {
             classes() {
                 return [
-
+                    'favorite',
+                    'mt-2',
+                    !this.signedIn ? 'off' : (this.isFavorite ? 'favorited' : '')
                 ];
+            },
+            endPoint() {
+                return `/questions/${this.id}/favorite`
+            },
+            signedIn() {
+                return window.Auth.signedIn;
+            }
+        },
+
+        methods: {
+            toggle() {
+                if ( !this.signedIn) {
+                    this.$toast.warning('Please, login first', 'warning', {
+                        timeout: 3000,
+                        position: 'topLeft'
+                    });
+                    return;
+                }
+                this.isFavorite ? this.destroy() : this.create();
+            },
+
+            create() {
+                axios.post(`/questions/${this.id}/favorite`)
+                .then(response => {
+                    this.isFavorite = true;
+                    this.count++;
+                });
+            },
+
+            destroy () {
+                axios.delete(`/questions/${this.id}/favorite`)
+                    .then(response => {
+                        this.isFavorite = false;
+                        this.count--;
+                    });
             }
         }
     }
