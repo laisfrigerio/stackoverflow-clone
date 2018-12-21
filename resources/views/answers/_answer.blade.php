@@ -7,10 +7,11 @@
                     'uri'        => 'answers'
                 ])
 
-            @include('partials._accept', [
-                'model' => $answer,
-                'uri'   => 'answers'
-            ])
+            {{--@include('partials._accept', [--}}
+                {{--'model' => $answer,--}}
+                {{--'uri'   => 'answers'--}}
+            {{--])--}}
+            <accept :answer="{{ $answer }}"></accept>
         </div>
         <div class="media-body">
             <form v-if="editing" @submit.prevent="update">

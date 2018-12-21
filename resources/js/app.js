@@ -30,6 +30,7 @@ Vue.use(VueIziToast);
 Vue.component('avatar', require('./components/partials/Avatar.vue'));
 Vue.component('answer', require('./components/partials/Answer.vue'));
 Vue.component('favorite', require('./components/partials/Favorite.vue'));
+Vue.component('accept', require('./components/partials/Accept.vue'));
 
 // const files = require.context('./', true, /\.vue$/i)
 

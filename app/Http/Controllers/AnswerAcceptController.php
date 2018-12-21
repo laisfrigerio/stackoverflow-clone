@@ -24,6 +24,13 @@ class AnswerAcceptController extends Controller
         $question = $answer->question;
         $question->best_answer_id = $answer->id;
         $question->save();
+
+        if (request()->expectsJson()) {
+            return response()->json([
+                'message' => 'You hava accepted this answer as best answer'
+            ]);
+        }
+
         return back()->with(['success' => 'Answer accepted as best answer']);
     }
 }

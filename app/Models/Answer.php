@@ -17,7 +17,7 @@ class Answer extends Model
     ];
 
     protected  $appends = [
-        'created_date', 'body_html'
+        'created_date', 'body_html', 'is_best'
     ];
 
     public static function boot()
@@ -70,7 +70,12 @@ class Answer extends Model
     {
         return $this->isBest() ? 'votes-accepted' : '';
     }
-    
+
+    public function getIsBestAttribute()
+    {
+        return $this->isBest();
+    }
+
     /**
      * Sum total of votes from a question
      *
