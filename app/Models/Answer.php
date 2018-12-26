@@ -17,7 +17,7 @@ class Answer extends Model
     ];
 
     protected  $appends = [
-        'created_date', 'body_html', 'is_best'
+        'created_date', 'body_html', 'is_best', 'votes_count'
     ];
 
     public static function boot()

@@ -29,5 +29,7 @@ class VoteService
         $upVotes = (int) $model->upVotes()->sum('vote');
         $model->votes_counter = $upVotes + $downVotes;
         $model->save();
+
+        return $model->votes_counter;
     }
 }

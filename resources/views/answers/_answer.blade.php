@@ -1,16 +1,7 @@
 <answer :answer="{{ $answer }}" inline-template>
     <div class="media post">
         <div class="d-flex flex-column vote-controls">
-            @include('partials._vote', [
-                    'model'      => $answer,
-                    'name'       => 'answer',
-                    'uri'        => 'answers'
-                ])
-
-            {{--@include('partials._accept', [--}}
-                {{--'model' => $answer,--}}
-                {{--'uri'   => 'answers'--}}
-            {{--])--}}
+            <vote :model="{{ $answer }}" name="answer"></vote>
             <accept :answer="{{ $answer }}"></accept>
         </div>
         <div class="media-body">

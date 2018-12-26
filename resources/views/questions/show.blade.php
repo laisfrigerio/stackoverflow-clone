@@ -21,11 +21,7 @@
 
                             <div class="d-flex flex-column vote-controls">
 
-                                @include('partials._vote', [
-                                    'model'      => $question,
-                                    'name'       => 'question',
-                                    'uri'        => 'questions'
-                                ])
+                                <vote :model="{{ $question }}" name="question"></vote>
 
                                 <favorite :question="{{ $question }}"></favorite>
                             </div>

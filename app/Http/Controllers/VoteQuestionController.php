@@ -4,15 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\VoteRequest;
 use App\Models\Question;
+use App\Services\VoteService;
 
 class VoteQuestionController extends Controller
 {
     /**
-     * VoteQuestionController constructor.
+     * @var VoteService
      */
-    public function __construct()
+    private $voteService;
+
+    /**
+     * VoteQuestionController constructor.
+     * @param VoteService $voteService
+     */
+    public function __construct(VoteService $voteService)
     {
         $this->middleware('auth');
+        $this->voteService = $voteService;
     }
     
     /**
@@ -25,12 +33,13 @@ class VoteQuestionController extends Controller
     public function __invoke(VoteRequest $request, Question $question)
     {
         $vote = (int) $request->input('vote');
-        $user = auth()->user();
-        
-        if ($user->questionsVote()->where('votable_id', $question->id)->exists()) {
-            $user->questionsVote()->updateExistingPivot($question, [ 'vote' => $vote ]);
-        } else {
-            $user->questionsVote()->attach($question, [ 'vote' => $vote ]);
+        $votesCount = $this->voteService->vote($request->user()->questionsVote(), $question, $vote);
+
+        if (request()->expectsJson()) {
+            return response()->json([
+                'message' => 'Thanks for the feedback',
+                'votesCount' => $votesCount
+            ]);
         }
         
         return back();
