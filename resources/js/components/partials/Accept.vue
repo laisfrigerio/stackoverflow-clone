@@ -17,6 +17,8 @@
 </template>
 
 <script>
+    import eventBus from '../event-bus';
+
     export default {
         name: "Accept",
         props: ['answer'],
@@ -25,6 +27,12 @@
                 isBest: this.answer.is_best,
                 id: this.answer.id
             }
+        },
+
+        created() {
+          eventBus.$on('accepted', id => {
+              this.isBest = id === this.id;
+          })
         },
 
         computed: {
@@ -53,6 +61,7 @@
                         });
 
                         this.isBest = true;
+                        eventBus.$emit('accepted', this.id);
                     });
             }
         },
