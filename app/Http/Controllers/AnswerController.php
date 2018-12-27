@@ -14,6 +14,17 @@ class AnswerController extends Controller
     {
         $this->middleware('auth');
     }
+
+    /**
+     * Show all answers from a specific question
+     *
+     * @param Question $question
+     * @return \Illuminate\Contracts\Pagination\Paginator
+     */
+    public function index(Question $question)
+    {
+        return $question->answers()->with('user')->simplePaginate(3);
+    }
     
     /**
      * Store a newly created resource in storage.

@@ -19,7 +19,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('questions', 'QuestionController')->except('show');
 Route::get('/questions/{slug}', 'QuestionController@show')->name('questions.show');
 //Route::post('/questions/{question}/answers', 'AnswerController@store')->name('answers.store');
-Route::resource('questions.answers', 'AnswerController')->only(['store', 'edit', 'update', 'destroy']); // nested routes
+Route::resource('questions.answers', 'AnswerController')->only(['index', 'store', 'edit', 'update', 'destroy']); // nested routes
 
 Route::post('/questions/{question}/favorite', 'FavoriteController@store')->name('questions.favorite');
 Route::delete('/questions/{question}/favorite', 'FavoriteController@destroy')->name('questions.unfavorite');

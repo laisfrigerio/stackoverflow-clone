@@ -52356,7 +52356,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -52367,6 +52367,11 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+//
+//
+//
 //
 //
 //
@@ -52386,11 +52391,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "Answers",
-    props: ['answers', 'count'],
+    props: ['question'],
+
+    data: function data() {
+        return {
+            questionId: this.question.id,
+            count: this.question.answers_count,
+            answers: [],
+            nextUrl: null
+        };
+    },
+
+
     computed: {
         title: function title() {
             return this.count + " " + (this.count > 0 ? 'Answers' : 'Answer');
         }
+    },
+
+    methods: {
+        fetch: function fetch(endPoint) {
+            var _this = this;
+
+            axios.get(endPoint).then(function (response) {
+                var _answers;
+
+                console.log(response.data.data);
+                (_answers = _this.answers).push.apply(_answers, _toConsumableArray(response.data.data));
+                _this.nextUrl = response.data.next_page_url;
+            });
+        }
+    },
+
+    created: function created() {
+        this.fetch("/questions/" + this.questionId + "/answers");
     }
 });
 
@@ -52418,10 +52452,28 @@ var render = function() {
                 _vm._v(" "),
                 _vm._l(_vm.answers, function(answer) {
                   return _c("answer", {
-                    key: "answer.id",
-                    attrs: { answer: answer }
+                    key: answer.id,
+                    attrs: { answer: answer, questionID: answer.questionID }
                   })
-                })
+                }),
+                _vm._v(" "),
+                _vm.nextUrl
+                  ? _c("div", { staticClass: "text-center mt-3" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-secondary",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              _vm.fetch(_vm.nextUrl)
+                            }
+                          }
+                        },
+                        [_vm._v("Load more answers")]
+                      )
+                    ])
+                  : _vm._e()
               ],
               2
             )
