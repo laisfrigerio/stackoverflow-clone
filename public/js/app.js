@@ -52356,7 +52356,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -52410,13 +52410,16 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     },
 
     methods: {
+        remove: function remove(index) {
+            this.count = this.count - 1;
+            this.answers.splice(index, 1);
+        },
         fetch: function fetch(endPoint) {
             var _this = this;
 
             axios.get(endPoint).then(function (response) {
                 var _answers;
 
-                console.log(response.data.data);
                 (_answers = _this.answers).push.apply(_answers, _toConsumableArray(response.data.data));
                 _this.nextUrl = response.data.next_page_url;
             });
@@ -52450,10 +52453,15 @@ var render = function() {
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),
-                _vm._l(_vm.answers, function(answer) {
+                _vm._l(_vm.answers, function(answer, index) {
                   return _c("answer", {
                     key: answer.id,
-                    attrs: { answer: answer, questionID: answer.questionID }
+                    attrs: { answer: answer, questionID: answer.questionID },
+                    on: {
+                      deleted: function($event) {
+                        _vm.remove(index)
+                      }
+                    }
                   })
                 }),
                 _vm._v(" "),
@@ -52578,7 +52586,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -52688,9 +52696,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 buttons: [['<button><b>YES</b></button>', function (instance, toast) {
 
                     axios.delete("/questions/" + _this2.questionID + "/answers/" + _this2.id).then(function (response) {
-                        $(_this2.$el).fadeOut(500, function () {
-                            _this2.$toast.success(response.data.message, "Sucess", { timeout: 3000 });
-                        });
+                        _this2.$emit('deleted');
                     });
                     instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
                 }, true], ['<button>NO</button>', function (instance, toast) {

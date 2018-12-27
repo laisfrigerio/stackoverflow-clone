@@ -99,9 +99,7 @@
 
                             axios.delete(`/questions/${this.questionID}/answers/${this.id}`)
                                 .then(response => {
-                                    $(this.$el).fadeOut(500, () => {
-                                        this.$toast.success(response.data.message, "Sucess", { timeout: 3000 });
-                                    })
+                                    this.$emit('deleted')
                                 });
                             instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
                         }, true],
