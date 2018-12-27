@@ -29,8 +29,10 @@ Vue.use(Authorization);
  * Eg. ./components/Avatar.vue -> <avatar></avatar>
  */
 
-Vue.component('avatar', require('./components/partials/Avatar.vue'));
+Vue.component('question-page', require('./components/pages/QuestionPage.vue'));
+Vue.component('question', require('./components/Question.vue'));
 Vue.component('answers', require('./components/Answers.vue'));
+Vue.component('avatar', require('./components/partials/Avatar.vue'));
 Vue.component('answer', require('./components/partials/Answer.vue'));
 Vue.component('NewAnswer', require('./components/partials/NewAnswer.vue'));
 Vue.component('favorite', require('./components/partials/Favorite.vue'));
