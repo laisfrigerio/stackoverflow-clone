@@ -1,15 +1,17 @@
 <template>
     <div>
-        <a v-if="authorize('accept', answer)"
+        <a
+            v-if="authorize('accept', answer)"
             title="Mark this answer as best answer"
             :class="classes"
             @click.prevent="create"
         >
             <i class="fas fa-check fa-2x"></i>
         </a>
-        <a v-if="accepted"
-                title="The question owner accepted this answer as best answer"
-                :class="classes"
+        <a
+            v-if="accepted"
+            title="The question owner accepted this answer as best answer"
+            :class="classes"
         >
             <i class="fas fa-check fa-2x"></i>
         </a>
@@ -17,7 +19,7 @@
 </template>
 
 <script>
-    import eventBus from '../event-bus';
+    import eventBus from '../../event-bus';
 
     export default {
         name: "Accept",

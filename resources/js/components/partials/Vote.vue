@@ -1,6 +1,7 @@
 <template>
     <div>
-        <a :title="title('up')"
+        <a
+           :title="title('up')"
            @click.prevent="voteUp"
            class="vote-up" :class="classes"
         >
@@ -9,7 +10,8 @@
 
         <span class="votes-count">{{ count }}</span>
 
-        <a :title="title('down')"
+        <a
+           :title="title('down')"
            @click.prevent="voteDown"
            class="vote-down" :class="classes"
         >
@@ -25,7 +27,7 @@
 
         data() {
             return {
-                count: this.model.votes_count,
+                count: this.model.votes_count || 0,
                 id: this.model.id
             };
         },

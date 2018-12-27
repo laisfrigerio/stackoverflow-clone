@@ -1,19 +1,31 @@
 <template>
-    <div class="row mt-4"  v-cloak v-if="count">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-title">
-                        <h2>{{ title }}</h2>
-                    </div>
-                    <hr>
-                    <answer @deleted="remove(index)" v-for="(answer, index) in answers" :answer="answer" :key="answer.id" :questionID="answer.questionID"></answer>
-                    <div class="text-center mt-3" v-if="nextUrl">
-                        <button @click.prevent="fetch(nextUrl)" class="btn btn-outline-secondary">Load more answers</button>
+    <div>
+        <div class="row mt-4"  v-cloak v-if="count">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h2>{{ title }}</h2>
+                        </div>
+                        <hr>
+                        <answer
+                            @deleted="remove(index)"
+                            v-for="(answer, index) in answers"
+                            :answer="answer"
+                            :key="answer.id"
+                            :questionID="answer.questionID"
+                        ></answer>
+                        <div class="text-center mt-3" v-if="nextUrl">
+                            <button
+                                @click.prevent="fetch(nextUrl)"
+                                class="btn btn-outline-secondary"
+                            >Load more answers</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <new-answer @created="add" :question-id="question.id"></new-answer>
     </div>
 </template>
 
@@ -38,6 +50,11 @@
         },
 
         methods: {
+          add(answer) {
+              this.answers.push(answer);
+              this.count++;
+          },
+
           remove(index) {
               this.count =  this.count - 1;
               this.answers.splice(index, 1);

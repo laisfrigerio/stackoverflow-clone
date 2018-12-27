@@ -7,10 +7,23 @@
         <div class="media-body">
             <form v-if="editing" @submit.prevent="update">
                 <div class="form-group">
-                    <textarea rows="10" v-model="body" class="form-control" required></textarea>
+                    <textarea
+                        rows="10"
+                        v-model="body"
+                        class="form-control"
+                        required
+                    ></textarea>
                 </div>
-                <button @click="edit" :disabled="isInvalid" class="btn btn-primary">Update</button>
-                <button @click="cancel" class="btn btn-danger" type="button">Cancel</button>
+                <button
+                    @click="edit"
+                    :disabled="isInvalid"
+                    class="btn btn-primary"
+                >Update</button>
+                <button
+                    @click="cancel"
+                    class="btn btn-danger"
+                    type="button"
+                >Cancel</button>
             </form>
             <div v-else>
                 <div v-html="bodyHtml"></div>
@@ -21,16 +34,12 @@
                                 v-if="authorize('modify', answer)"
                                 @click.prevent="edit"
                                 class="btn btn-sm btn-primary"
-                            >
-                                Edit
-                            </a>
+                            >Edit</a>
                             <button
                                 v-if="authorize('modify', answer)"
                                 @click="destroy"
                                 class="btn btn-sm btn-outline-danger"
-                            >
-                                Delete
-                            </button>
+                            >Delete</button>
                         </div>
                     </div>
                     <div class="col-4"></div>
