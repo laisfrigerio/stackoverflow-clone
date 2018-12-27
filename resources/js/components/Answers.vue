@@ -30,51 +30,47 @@
 </template>
 
 <script>
-    export default {
-        name: "Answers",
-        props: ['question'],
+export default {
+    name: "Answers",
+    props: ['question'],
 
-        data() {
-            return {
-                questionId: this.question.id,
-                count: this.question.answers_count,
-                answers: [],
-                nextUrl: null,
-            }
+    data() {
+        return {
+            questionId: this.question.id,
+            count: this.question.answers_count,
+            answers: [],
+            nextUrl: null,
+        }
+    },
+
+    computed: {
+        title() {
+            return this.count + " " + (this.count > 0 ? 'Answers' : 'Answer')
+        }
+    },
+
+    methods: {
+        add(answer) {
+            this.answers.push(answer);
+            this.count++;
         },
 
-        computed: {
-            title() {
-                return this.count + " " + (this.count > 0 ? 'Answers' : 'Answer')
-            }
+        remove(index) {
+            this.count =  this.count - 1;
+            this.answers.splice(index, 1);
         },
 
-        methods: {
-          add(answer) {
-              this.answers.push(answer);
-              this.count++;
-          },
-
-          remove(index) {
-              this.count =  this.count - 1;
-              this.answers.splice(index, 1);
-          },
-
-          fetch(endPoint) {
-              axios.get(endPoint)
-                  .then(response => {
-                      this.answers.push(...response.data.data);
-                      this.nextUrl = response.data.next_page_url;
-                  });
-          },
+        fetch(endPoint) {
+            axios.get(endPoint)
+                .then(response => {
+                    this.answers.push(...response.data.data);
+                    this.nextUrl = response.data.next_page_url;
+                });
         },
+    },
 
-        created() {
-          this.fetch(`/questions/${this.questionId}/answers`);
-        },
-    }
+    created() {
+        this.fetch(`/questions/${this.questionId}/answers`);
+    },
+}
 </script>
-
-<style scoped>
-
-</style>
